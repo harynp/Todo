@@ -2,13 +2,12 @@ var jwt = require('jsonwebtoken');
 require('dotenv').config()
 
 const isLogin = (req,res,next) => {
-  console.log('token di islogin ', req.headers.token)
     jwt.verify(req.headers.token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
           console.log('GAGAL LOGIN',err);
-          // res.send(err)
+          res.send(err)
         } else {
-            req.headers.auth = decoded
+            req.headers = decoded
             next()
         }
     })

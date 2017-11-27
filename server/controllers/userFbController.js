@@ -5,13 +5,10 @@ require('dotenv').config()
 
 const login = (req, res) => {
   FB.api('/me', {fields: ['id','name','email']}, (response) => {
-    // res.send(response)
     console.log('ini response fb', response);
-
     db.find({fb_id: response.id})
     .then(result => {
       if(result.length === 0){
-        console.log('blom ada user nya')
         db.create({
           fb_id: response.id,
           email: response.email,

@@ -32,10 +32,10 @@ const actions = {
   getTodo({ commit }) {
     var config = {
       headers: {
-        token: localStorage.getItem('Token') || localStorage.getItem('fbaccesstoken')
+        token: localStorage.getItem('Token') || localStorage.getItem('token')
       }
     };
-    http.get('/todo/id/'+ localStorage.getItem('Token'), config)
+    http.get('/todo/id/'+ localStorage.getItem('id'), config)
       .then(({
         data
       }) => {
@@ -46,7 +46,7 @@ const actions = {
   addTodo({ commit }, newTodo) {
     var config = {
       headers: {
-        token: localStorage.getItem('Token')
+        token: localStorage.getItem('Token') || localStorage.getItem('token')
       }
     };
     http.post('/todo', newTodo, config)
@@ -60,7 +60,7 @@ const actions = {
   rmvTodo({ commit }, todoID) {
     var hapus = ({
       headers: {
-        token : localStorage.getItem('Token')
+        token : localStorage.getItem('Token') || localStorage.getItem('token')
       }
     })
     http.delete(`/todo/${todoID}`, hapus)
@@ -72,7 +72,7 @@ const actions = {
   updStatus({ commit }, task) {
     var config = {
       headers: {
-        token: localStorage.getItem('Token')
+        token: localStorage.getItem('Token') || localStorage.getItem('token')
       }
     }
     if(task.status == true) {

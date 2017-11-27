@@ -2,19 +2,15 @@ const Model = require('../models/todo')
 const jwt = require('jsonwebtoken')
 var ObjectId  = ('mongodb').ObjectId
 
-
 class Todo {
   static getAll (req,res) {
-    Model.find({
-      userId: req.headers.auth._id || req.headers.id
-    })
-    .populate({path:'userid', select: 'username'})
+    Model.find({userId: req.headers.id})
+    .populate({path:'userId'})
     .then(content => res.send(content))
     .catch(err => console.error(err))
   }
 
   static addTodo (req,res) {
-    console.log('INI REQ BODY',req.body);
     Model.create({
       content : req.body.content,
       userId  : req.headers.id
